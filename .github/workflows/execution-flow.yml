@@ -77,3 +77,14 @@ jobs:
         run: ls
       - name: Deploy
         run: echo "Deploying..."
+  reports:
+    needs: [lint,deploy]
+    if: failure()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get test report
+        run: |
+          echo "Fetching test report..."
+          echo "${{toJson(github)}}"
+
+
